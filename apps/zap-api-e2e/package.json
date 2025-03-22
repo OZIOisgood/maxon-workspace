@@ -1,0 +1,26 @@
+{
+  "name": "@maxon-workspace/zap-api-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "zap-api-e2e",
+    "implicitDependencies": [
+      "zap-api"
+    ],
+    "targets": {
+      "e2e": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{projectRoot}/test-output/jest/coverage"
+        ],
+        "options": {
+          "jestConfig": "apps/zap-api-e2e/jest.config.ts",
+          "passWithNoTests": true
+        },
+        "dependsOn": [
+          "zap-api:build"
+        ]
+      }
+    }
+  }
+}
