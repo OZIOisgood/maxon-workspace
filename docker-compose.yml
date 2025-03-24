@@ -1,0 +1,27 @@
+networks:
+  zap-api:
+    driver: bridge
+services:
+  zap-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${ZAP_API_PORT}:${ZAP_API_PORT}"
+    depends_on:
+      - zap-db
+    networks:
+      - zap-api
+    env_file:
+      - .env
+  zap-db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: ${ZAP_DB_NAME}
+      POSTGRES_USER: ${ZAP_DB_USER}
+      POSTGRES_PASSWORD: ${ZAP_DB_PASSWORD}
+    ports:
+      - "${ZAP_DB_PORT}:${ZAP_DB_PORT}"
+    networks:
+      - zap-api
