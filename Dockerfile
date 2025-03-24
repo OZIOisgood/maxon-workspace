@@ -9,7 +9,3 @@ COPY package.json pnpm-lock.yaml ./
 RUN pnpm install
 
 COPY . .
-
-EXPOSE ${ZAP_API_PORT}
-
-CMD ["pnpm", "nx", "serve", "zap-api"]

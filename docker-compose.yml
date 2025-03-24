@@ -1,6 +1,7 @@
 networks:
-  zap-api:
+  maxon-network:
     driver: bridge
+
 services:
   zap-api:
     build:
@@ -11,9 +12,23 @@ services:
     depends_on:
       - zap-db
     networks:
-      - zap-api
+      - maxon-network
     env_file:
       - .env
+    command: ["pnpm", "nx", "serve", "zap-api"]
+
+  zap-mini-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${ZAP_MINI_APP_PORT}:${ZAP_MINI_APP_PORT}"
+    networks:
+      - maxon-network
+    env_file:
+      - .env
+    command: ["pnpm", "nx", "serve", "zap-mini-app", "--port", "${ZAP_MINI_APP_PORT}", "--host", "0.0.0.0"]
+
   zap-db:
     image: postgres:latest
     restart: always
@@ -24,4 +39,4 @@ services:
     ports:
       - "${ZAP_DB_PORT}:${ZAP_DB_PORT}"
     networks:
-      - zap-api
+      - maxon-network
