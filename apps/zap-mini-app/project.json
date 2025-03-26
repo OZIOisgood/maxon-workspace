@@ -8,12 +8,16 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/zap-mini-app",
         "index": "apps/zap-mini-app/src/index.html",
         "browser": "apps/zap-mini-app/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/zap-mini-app/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -22,7 +26,10 @@
             "input": "apps/zap-mini-app/public"
           }
         ],
-        "styles": ["apps/zap-mini-app/src/styles.scss"],
+        "styles": [
+          "@angular/material/prebuilt-themes/cyan-orange.css",
+          "apps/zap-mini-app/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
