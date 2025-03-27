@@ -6,6 +6,17 @@
   "sourceRoot": "apps/zap-mini-app/src",
   "tags": [],
   "targets": {
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "baseBranch": "HEAD:main",
+        "preset": "conventional",
+        "tagPrefix": "APP_NAME_",
+        "push": true,
+        "trackDeps": true,
+        "commitMessageFormat": "chore({projectName}): release version {version} [skip ci]"
+      }
+    },
     "build": {
       "executor": "@angular-devkit/build-angular:application",
       "outputs": [
