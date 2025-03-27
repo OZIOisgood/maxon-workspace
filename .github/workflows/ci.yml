@@ -1,9 +1,40 @@
-name: release
+name: CI/CD Pipeline
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint all projects
+        run: pnpm nx run-many --target=lint --all
+
+      - name: Build all projects
+        run: pnpm nx run-many --target=build --all
+
   release:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
